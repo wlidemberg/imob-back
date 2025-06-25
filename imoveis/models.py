@@ -64,3 +64,69 @@ class Imovel(models.Model):
     # Representação do objeto no admin e nos logs
     def __str__(self):
         return f'{self.titulo} - {self.get_tipo_display()}'
+    
+# Modelo Locadores (quem aluga o imóvel)
+class Locadores(models.Model):
+    TIPO_PESSOA = [
+        ('F', 'Pessoa Fisíca'),
+        ('J', 'Pessoa Jurídica')
+    ]
+
+    tipo = models.CharField(
+        max_length=1,
+        choices=TIPO_PESSOA,
+        default='F',
+        help_text='Tipo de Pessoa: Fisíca ou Jurídica'
+    )
+
+    nome = models.CharField(
+        max_length=100,
+        help_text='Nome completo do Locador'
+    )
+    cpf = models.CharField(
+        max_length=13,
+        unique=True,
+        help_text='Digite o CPF do Locador'
+    )
+
+    identidade = models.CharField(
+        max_length=30,
+        null=True,
+        blank=True,
+        help_text='Documento de Identificação com Foto'
+    )
+
+    cnpj = models.CharField(
+        max_length=18,
+        unique=True,
+        help_text='Digite o CNPJ da Empresa'
+    )
+
+    inscricao_estadual = models.CharField(
+        max_length=30,
+        null=True,
+        blank=True,
+        help_text='Inscrição estadual empresa'
+    )
+
+    email = models.EmailField(
+        blank=True,
+        help_text='Email para contato'
+    )
+    telefone = models.CharField(
+        max_length=20,
+        blank=True,
+        help_text='Telefone para contato'
+    )
+    endereco = models.CharField(
+        max_length=200,
+        blank=True,
+        help_text='Endereço Locador'
+    )
+    data_cadastro = models.DateTimeField(
+        auto_now_add=True,
+        help_text='Data que o locador fo cadastrado'
+    )
+
+    def __str__(self):
+        return f'{self.nome} - {self.get_tipo_display()}'    
