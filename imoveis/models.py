@@ -1,4 +1,6 @@
 from django.db import models
+from django.core.exceptions import ValidationError
+from validate_docbr import CPF, CNPJ
 
 # Create your models here.
 
@@ -65,7 +67,7 @@ class Imovel(models.Model):
     def __str__(self):
         return f'{self.titulo} - {self.get_tipo_display()}'
     
-# Modelo Locadores (quem aluga o imóvel)
+# Modelo Locadores (quem disponibiliza o imóvel)
 class Locadores(models.Model):
     TIPO_PESSOA = [
         ('F', 'Pessoa Fisíca'),
@@ -130,3 +132,91 @@ class Locadores(models.Model):
 
     def __str__(self):
         return f'{self.nome} - {self.get_tipo_display()}'    
+    
+# Modelo Locatário (quem aluga o imovel)
+class Locatarios(models.Model):
+    TIPO_PESSOA = [
+        ('F', 'Pessoa Física'),
+        ('J', 'Pessoa Jurídica')
+    ]
+
+    tipo = models.CharField(
+        max_length=1,
+        choices=TIPO_PESSOA,
+        default='F',
+        help_text='Tipo de Pessoa: Física ou Jurídica.'
+    )
+
+    nome = models.CharField(
+        max_length=100,
+        help_text='Nome do Locatário se pessoa física.'
+    )
+
+    cpf = models.CharField(
+        max_length=13,
+        unique=True,
+        help_text='Digite o CPF do Locador.'
+    )
+
+    identidade = models.CharField(
+        max_length=20,
+        help_text='Documento de Identificação com foto',
+        null=True,
+        blank=True
+    )
+
+    nome_fantasia = models.CharField(
+        max_length=100,
+        help_text='Nome fantasia, caso não possua, deixar em branco.',
+        null=True,
+        blank=True
+    )
+
+    cnpj = models.CharField(
+        max_length=18,
+        unique=True,
+        help_text='Digite o CNPJ da empresa.'
+    )
+
+    inscricao_estadual = models.CharField(
+        max_length=20,
+        null=True,
+        blank=True,
+        help_text='Número de inscrição estadual.'
+    )
+
+    email = models.EmailField(
+        blank=True
+    )
+
+    telefone = models.CharField(
+        max_length=20, 
+        blank=True
+    )
+
+    endereco = models.CharField(
+        max_length=200,
+        blank=True
+    )
+
+    data_cadastro = models.DateTimeField(
+        auto_now_add=True
+    )
+
+    def __str__(self):
+        return f'{self.nome} - {self.get_tipo_display()}'
+    
+    def clean(self):
+        """ Valida o CPF ou CNPJ de acordo com o tipo """
+        if self.tipo == 'F':
+            if not self.cpf:
+                raise ValidationError({'cpf' : 'CPF é obrigatório para pessoa física.'})
+            
+            if not CPF().validate(self.cpf):
+                raise ValidationError({'cpf':'CPF inválido'})
+
+        elif self.tipo == 'J':
+            if not self.cnpj:
+                raise ValidationError({'cnpj':'CNPJ é obrigatório para pessoa jurídica.'})
+            if not CNPJ().validate(self.cnpj):
+                raise ValidationError({'cnpj':'CNPJ inválido.'})    
