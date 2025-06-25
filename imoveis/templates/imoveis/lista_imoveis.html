@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imóveis</title>
+
+    <style>
+        body{font-family: Arial, Helvetica, sans-serif; margin: 2rem; background: #f7f7f7;}
+        .container{max-width: 800px; margin: 0 auto; background-color: #fff; padding: 1rem; border-radius: 10px; box-shadow: 0 0 10 rgba(0, 0, 0, 0.1);}
+        .imovel{border-bottom: 1px solid #ccc; padding: 1rem 0;}
+        .imovel:last-child{border: none;}
+        .titulo{font-size: 1.3rem; font-weight: bold;}
+        .tipo{font-size: 0.9rem; color: #888;}
+        .preco{color: green;}
+    </style>
+
+</head>
+<body>
+    <section class="container">
+        <h1>Imóveis</h1>
+        {% for imovel in imoveis %}
+       
+        <div class="imovel">
+            <div class="titulo">{{ imovel.titulo }}</div>
+            <div class="tipo">{{imovel.get_tipo_display}}</div>
+            <div class="endereco">{{imovel.endereco}}</div>
+            <div class="preco">{{imovel.preco}}</div>
+        </div>
+       
+        {% empty %}
+        <p>Nenhum Imóvel disponível no momento!</p>
+        {%endfor%}
+    </section>
+</body>
+</html>
