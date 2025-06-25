@@ -53,6 +53,8 @@ class Imovel(models.Model):
         help_text='Se está disponível para venda ou locação.'
     )
 
+    locadores = models.ManyToManyField('Locadores', through='LocadorImovel', related_name='imoveis', help_text='Locadores Vinculados a esse imóvel')
+
     data_cadastro = models.DateTimeField(
         auto_now_add=True,
         help_text='Data em que o imóvel foi cadastrado.'
@@ -66,6 +68,32 @@ class Imovel(models.Model):
     # Representação do objeto no admin e nos logs
     def __str__(self):
         return f'{self.titulo} - {self.get_tipo_display()}'
+    
+    # Validação do percentual do imovel
+    """def clean(self):
+        total = sum(
+            li.participa for li in LocadorImovel.objects.filter(imovel=self)
+        )
+        if total != 100:
+            raise ValidationError(
+                f'A soma dos percentuais dos locadores deve ser exatamente 100%. Atualmente {total}%.'
+            )"""
+    
+# Modelo ImovelLocador responsavel por criar a relaçao imovel / locador e seu percentual de participação
+class LocadorImovel(models.Model):
+    imovel = models.ForeignKey('Imovel', on_delete=models.CASCADE)
+    locador = models.ForeignKey('Locadores', on_delete=models.CASCADE)
+    participacao = models.DecimalField(
+        max_digits=5,
+        decimal_places=2,
+        help_text='Percentual de Participação de Locação do Imóvel.'
+    )
+
+    class Meta:
+        unique_together = ('imovel', 'locador')
+
+    def __str__(self):
+        return f'{self.locador.nome} - {self.participacao}% do {self.imovel.titulo}'      
     
 # Modelo Locadores (quem disponibiliza o imóvel)
 class Locadores(models.Model):
@@ -88,6 +116,8 @@ class Locadores(models.Model):
     cpf = models.CharField(
         max_length=13,
         unique=True,
+        null=True,
+        blank=True,
         help_text='Digite o CPF do Locador'
     )
 
@@ -101,6 +131,8 @@ class Locadores(models.Model):
     cnpj = models.CharField(
         max_length=18,
         unique=True,
+        null=True,
+        blank=True,
         help_text='Digite o CNPJ da Empresa'
     )
 
@@ -155,6 +187,8 @@ class Locatarios(models.Model):
     cpf = models.CharField(
         max_length=13,
         unique=True,
+        null=True,
+        blank=True,
         help_text='Digite o CPF do Locador.'
     )
 
@@ -175,6 +209,8 @@ class Locatarios(models.Model):
     cnpj = models.CharField(
         max_length=18,
         unique=True,
+        null=True,
+        blank=True,
         help_text='Digite o CNPJ da empresa.'
     )
 
