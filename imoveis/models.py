@@ -219,4 +219,49 @@ class Locatarios(models.Model):
             if not self.cnpj:
                 raise ValidationError({'cnpj':'CNPJ é obrigatório para pessoa jurídica.'})
             if not CNPJ().validate(self.cnpj):
-                raise ValidationError({'cnpj':'CNPJ inválido.'})    
+                raise ValidationError({'cnpj':'CNPJ inválido.'})
+
+# Modelo Fiador (garantidor do pagamento do aluguel)
+class Fiadores(models.Model):
+    nome = models.CharField(
+        max_length=100,
+        help_text='Nome do Fiador'
+    )                
+
+    cpf = models.CharField(
+        max_length=13,
+        unique=True,
+        help_text='Digite o CPF do Fiador.'
+    )
+
+    identidade = models.CharField(
+        max_length=20,
+        null=True,
+        blank=True,
+        help_text='Documento de identificação com foto.'
+    )
+
+    email = models.EmailField(
+        blank=True
+    )
+
+    telefone = models.CharField(
+        max_length=20,
+        blank=True,
+    )
+    
+    endereco = models.CharField(
+        max_length=200,
+        blank=True
+    )
+
+    data_cadastro = models.DateTimeField(
+        auto_now_add=True
+    )
+
+    def __str__(self):
+        return f'{self.nome} - {self.cpf}'
+    
+    def clean(self):
+        if not CPF().validate(self.cpf):
+            raise ValidationError({'cpf':'CPF inválido.'})

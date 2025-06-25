@@ -1,5 +1,5 @@
 from django import forms
-from .models import Locadores, Locatarios
+from .models import Locadores, Locatarios, Fiadores
 
 class LocadorForm(forms.ModelForm):
     class Meta:
@@ -33,3 +33,8 @@ class LocatarioForm(forms.ModelForm):
         elif tipo == 'J':
             self.fields['cpf'].widget = forms.HiddenInput()
             self.fields['identidade'].widget = forms.HiddenInput()
+
+class FiadorForm(forms.ModelForm):
+    class Meta:
+        model = Fiadores
+        fields = '__all__'

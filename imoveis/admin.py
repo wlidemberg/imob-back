@@ -1,6 +1,6 @@
 from django.contrib import admin
-from .models import Imovel, Locadores, Locatarios
-from .forms import LocadorForm, LocatarioForm
+from .models import Imovel, Locadores, Locatarios, Fiadores
+from .forms import LocadorForm, LocatarioForm, FiadorForm
 
 # Register your models here.
 
@@ -33,3 +33,10 @@ class LocatariosAdmin(admin.ModelAdmin):
 
     class Media:
         js = ('imoveis/admin.js',)
+
+@admin.register(Fiadores)
+class FiadoresAdmin(admin.ModelAdmin):
+    form = FiadorForm
+    list_display = ('id', 'nome', 'cpf', 'email', 'telefone','data_cadastro')
+    search_fields = ('nome', 'cpf')
+    ordering = ('-data_cadastro',)
