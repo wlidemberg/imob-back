@@ -30,7 +30,7 @@ class ImovelLocadorInline(admin.TabularInline):
 @admin.register(Imovel)
 class ImovelAdmin(admin.ModelAdmin):
     inlines = [ImovelLocadorInline]
-    list_display = ('id', 'titulo', 'tipo', 'preco', 'disponivel', 'data_cadastro')
+    list_display = ('id', 'titulo', 'tipo', 'preco', 'disponivel', 'data_cadastro', 'locatario', 'fiador')
     list_filter = ('tipo', 'disponivel')
     search_fields = ('titulo', 'endereco')
     ordering = ('-data_cadastro',)

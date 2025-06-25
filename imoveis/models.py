@@ -55,6 +55,32 @@ class Imovel(models.Model):
 
     locadores = models.ManyToManyField('Locadores', through='LocadorImovel', related_name='imoveis', help_text='Locadores Vinculados a esse imóvel')
 
+    # Locatário atual do imóvel (opcional, por que nem todo imovel está alugado)
+    """
+        Logica a ser implementada:
+        Se não houver Locatário automaticamente imóvel será considerado disponível
+    """
+    locatario = models.ForeignKey(
+        'Locatarios', 
+        on_delete=models.SET_NULL, # Mesmo que o Locatario seja excluido o imóvel permanece
+        null=True,
+        blank=True,
+        help_text='Locatário atual do imóvel(se alugado)'
+    )
+
+    # Fiador atual (opcional)
+    """
+        Logica a ser implementada:
+        Se não houver Fiador automaticamente sera considerado 03 meses deposito garantia (valor aluguel)
+    """
+    fiador = models.ForeignKey(
+        'Fiadores',
+        on_delete=models.SET_NULL, # Mesmo que o fiador seja excluido o locatário permanece
+        null=True,
+        blank=True,
+        help_text='Fiador do Locatario se houver'
+    )
+
     data_cadastro = models.DateTimeField(
         auto_now_add=True,
         help_text='Data em que o imóvel foi cadastrado.'
