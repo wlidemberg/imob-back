@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.core.exceptions import ValidationError
-from .models import Imovel, Locadores, Locatarios, Fiadores, LocadorImovel
+from .models import Imovel, Locadores, Locatarios, Fiadores, LocadorImovel, ContratoLocacao
 from .forms import LocadorForm, LocatarioForm, FiadorForm
 
 # Register your models here.
@@ -84,4 +84,12 @@ class ImovelLocadorInline(admin.TabularInline):
                     raise ValidationError(
                         f'A soma dos percentuais dos locadores deve ser 100%. Total atual: {total}%.'
                     )
-        return ValidatedFormSet                 
+        return ValidatedFormSet   
+
+
+@admin.register(ContratoLocacao)
+class ContratoLocacaoAdmin(admin.ModelAdmin):
+    list_display = ('imovel', 'locatario', 'fiador', 'data_inicio', 'data_fim', 'valor_aluguel', 'status')
+    search_fields = ('imovel__titulo', 'lacatario__nome', 'fiador__nome')
+    list_filter = ('status', 'periodo_reajuste')
+    ordering = ('-data_inicio',)                  
