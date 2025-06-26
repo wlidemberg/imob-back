@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+
+        @page{
+            size: a4 portrait;
+               left: 50pt; 
+               right: 50pt;
+               top: 45pt;
+               bottom: 30pt;
+        }
+        body{font-family: Arial, Helvetica, sans-serif; font-size: 10pt;}
+        .titulo{text-align: center; font-size: 16pt;}
+        .clausula{margin: 20px 0;}
+        .clausula p {text-align: justify;}
+        .container_ass{text-align: center; margin: 20px 0;}
+        .container_ass p {line-height: 0; text-align: center; bottom: 20px;}
+    </style>
+    <title>Contrato de Locação</title>
+</head>
+<body>  
+    <h1 class="titulo">{{"Contrato de Locação" | upper}} {{ contrato.tipo }}</h1>
+    
+
+    <p>Contrato particular de locação de imóvel {{ contrato.tipo | lower }}, que entre si fazem, na qualidade de LOCADOR: 
+        {% for loc in contrato.imovel.locadorimovel_set.all %}
+            {{ loc.locador.nome }} - ({{ loc.participacao }}%)
+        {% endfor %}    
+    , brasileira, solteira, empresaria, Identidade nº 11.681.103-5 e C.P.F. nº 092.749.327-66, residente e domiciliada à Rua Gení Saraiva nº 1.250, Bairro Cerâmica, Nova Iguaçu, Estado do Rio de Janeiro, CEP 26.031.480, e de outra parte, na qualidade de LOCATÁRIO: {{ contrato.locatario.nome }}, inscrita no CNPJ sob o nº 28.501.896/0001-01, estabelecida a Rua Enedi Lourenço nº 19 Parque Flora, Nova Iguaçu RJ, e-mail: Contasapagar.glp@gmail.com , representada neste ato por seu sócio gerente MICHELE VITAL VALENTE, brasileira, solteira, empresário, portador da carteira de identidade n° 20.715.112-7 expedida pelo DETRAN/RJ e CPF  n° 114.575.227-64. Residente e domiciliado a Rua São Romão nº 155, Campo Grande, Rio de Janeiro, CEP: 23080-680,
+        {% if contrato.fiador %}
+            (Fiador: {{ contrato.fiador.nome }})
+        {% endif %}
+    declaram pelo presente instrumento e na melhor forma de direito, ter justo e contratado entre si a locação do imóvei  situado a {{ contrato.imovel.endereco}}, sob as seguintes cláusulas e condições:
+    </p>    
+
+    <div class="clausula">
+        <h3>Cláusula I - Prazo</h3>
+        <p>A locação é pelo prazo de 03 (três) anos, iniciando-se em {{ contrato.data_inicio }} e a terminar na data de {{ contrato.data_fim }}, independentemente de qualquer aviso, notificação ou interpelação judicial ou extrajudicial, obrigando-se a LOCATÁRIA a entrega-lo, nas condições deste contrato, vencendo-se o aluguel no dia 20 de cada mês independente de notifica ao ou aviso.</p>
+    </div>
+
+    <div class="clausula">
+        <h3>Cláusula II - Aluguel</h3>
+        <p>O aluguel inicial é de R$ {{ contrato.imovel.preco }} (Dois Mil Reais), acrescidos das taxas, encargos bem como quaisquer outras taxas que sejam inerentes aos imóveis, sendo tais pagamentos de obrigação da LOCATÁRIA, e será reajustado ANUALMENTE, utilizando-se um dos seguintes Índices: índice de Preços ao Consumidor da Fundação Instituto de Pesquisas Econômicas, Índice Geral de Preços da Fundação Getúlio Vargas (IGP/ FGV), Índice de Preço ao Consumidor da Fundação Getúlio Vargas, Índice Geral de Preços de Mercado da Fundação Getúlio Vargas (IGPM / FGV), Índice de Custo de Vida do Departamento Intersindical de Estatística e Estudos Socioeconômicos, Índice de Preços ao Consumidor Ampliado do Instituto Brasileiro de Geografia e Estatística (IPCA / IBGE), dentro os quais poderão ser escolhidos o maior, a critérios da LOCADORA</p>
+    </div>
+    <div class="clausula">
+        <h3>Cláusula III - </h3>
+        <p>III - PAGAMENTO - O aluguel ora ajustado deverá ser pago pela LOCATÁRIA a LOCADORA, aqui representada pela Administradora: ASSESCOR ASSESSORIA E CORRETAGEM, inscrita no CNPJ sob o nº 54.995.585/0001-56, estabelecida à Rua Dom Walmor nº 426 SLJ SBJ, Centro, Nova Iguaçu, Estado do Rio de Janeiro, CEP: 26.215.220, no dia ajustado para o vencimento. Ultrapassando o prazo de tolerância incidirá sobre o DÉBITO TOTAL multa de 10% (dez por cento) sobre o valor em aberto, incidirão juros de 1% (um por cento) ao mês, e correção monetária. A LOCATÁRIA QUE POR QUALQUER MOTIVO NÃO RECEBA, ATÉ UM DIA ANTERIOR A DATA DO VENCIMENTO, O BOLETO PARA PAGAMENTO DO ALUGUEL, FICA OBRIGADO A ENTRAR EM CONTATO, SEJA POR MEIOS TELEFONICOS, DIGITAIS OU PRESENCIAL, PARA O RECEBIMENTO DO BOLETO DE PAGAMENTO, E PROVIDENCIAR SUA QUITAÇÃO DENTRO DO PRAZO DE TOLERÊNCIA.</p>
+    </div>
+    <div class="class">
+        <h3>Cláusula IV - </h3>
+        <p>ENCARGOS SOCIAS - É da responsabilidade da LOCATÁRIA o pagamento do IPTU - Imposto Sobre Propriedade Predial e Territorial Urbano, das taxas municipais, taxas de incêndio, conta de água, de luz, seguro contra incêndio, condomínio, despesas decorrentes de lei e respectivas majorações, bem como todo e outro imposto ou taxa a que venham incidir sobre o imóvel locado.</p>
+    </div>
+    <div class="clausula">
+        <h3>Cláusula V - </h3>
+        <p>DESTINAÇÃO - O imóvel objeto do presente instrumento poderá ser usados exclusivamente para fins de COMERCIO DE DISTRIBUIÇÃO DE GÁS E BEBIDAS EM GERAL, sendo-lhe vedada destinação diversa sem o consentimento prévio e por escrito da LOCADORA, ou seu procurador. </p>
+    </div>
+    <div class="clausula">
+        <h3>Cláusula VI - </h3>
+        <p>CONSERVAÇÃO - A LOCATÁRIA declara que recebe neste ato, o imóvel locado em perfeitas condições de instalações, aparelhos hidráulicos e elétricos, trincos, fechaduras, portas, janelas, vidros e demais pertences, torneiras, pias, acessórios, e se obriga a restituí-lo, quando finda ou rescindida a locação, assim como o recebe, inclusive em relação a cores de pintura em seu interior.</p>
+    </div>
+    <div class="clausula">
+        <h3>Cláusula VII - </h3>
+        <p>ENTREGA DAS CHAVES - A entrega das chaves para vistoria, depois de desocupado o imóvel, não exonera a LOCATÁRIA das obrigações contratuais, inclusive quanto ao pagamento do aluguel e taxas. Está exoneração só se dará depois de reparados eventuais danos causados ao imóvel, de responsabilidade da LOCATÁRIA.</p>
+    </div>
+    <div class="clausula">
+        <h3>Cláusula VIII - </h3>
+        <p>RESCISÃO - O presente contrato ficará rescindido, de pleno direito, independentemente de qualquer notificação ou interpelação judicial e sem que assista a LOCATÁRIA direito a qualquer indenização nos seguintes casos: a) desapropriação, incêndio, ou qualquer outro fato de força maior que obrigue o impedimento do imóvel locado; b) no caso de falência da LOCATÁRIA; c) o descumprimento das cláusulas do presente contrato.</p>
+    </div>
+    <div class="clausula">
+        <h3>Cláusula XI - </h3>
+        <p>GARANTIA – A LOCATÁRIA, resolvem entre si, dá como fiança da presente locação, três meses de aluguel, ou seja, R$ 4.000,00 (quatro mil reais), no ato da assinatura deste instrumento, pelo qual a LOCADORA dá neste ato plena quitação, que será devolvido no final do contrato nas mesmas condições o equivalente a três meses de aluguel ou ficará para consertos de algumas avarias no imóvel.</p>
+    </div>
+    <div class="clausula">
+        <h3>Cláusula X - </h3>
+        <p>PENALIDADES - Fica estipulada a multa moratória no valor equivalente a 03 (três) meses do aluguel vigente, na qual incorrerá a parte que infringir qualquer cláusula do presente contrato, com a faculdade para a parte inocente de considerar simultaneamente rescindida a locação, independentemente de qualquer notificação, interpelação judicial ou extrajudicial. Além da multa, a parte infratora pagará à outra todas as despesas judiciais e extrajudiciais, que está tiver de arcar, inclusive honorários de advogado, à razão de 20% (vinte por cento), sobre o DÉBITO TOTAL.</p>
+    </div>
+    <div class="clausula">
+        <h3>Cláusula XI - </h3>
+        <p>FORNECIMENTO DE ENERGIA - É de responsabilidade da LOCATÁRIA, comparecer a LIGHT com este contrato e transferir a conta de energia para o seu nome. As chaves do imóvel só serão entregues após a apresentação e entrega do protocolo de transferência de titularidade na LIGHT. Assim como, no término desta locação e efetiva entrega das chaves, retornar à LIGHT e dar baixa em seu nome e desligar a luz, caso contrário o débito junto ao fornecedor de luz, mesmo no período do móvel vazio, será de sua inteira responsabilidade. O Administrador se compromete a fornecer a LOCATÁRIA toda documentação necessária para regularização junto à LIGHT, caso tenha ocorrido corte por débitos anteriores a esta locação. Na hipótese de a LOCATÁRIA não providenciar as medidas aqui citadas, a Administradora ficará isenta de toda e qualquer responsabilidade por futuros cortes de energia elétrica no imóvel locado, ou quaisquer cobranças de débitos da LIGHT, mesmo que estes não tenham sido do período em que foi da LOCATÁRIA deste imóvel.</p>
+    </div>
+    <div class="clausula">
+        <h3>Cláusula XII - </h3>
+        <p>BENFEITORIAS - A LOCATÁRIA não poderá fazer no imóvel modificações estruturais ou de adorno, ou ainda, qualquer tipo de obra, inclusive instalações de aparelhos elétricos ou de gás, sem aviso prévio e expresso consentimento, por escrito da LOCADORA, ou sua procuradora, notadamente no que se refere à instalação elétrica, sanitária e hidráulica. Quaisquer benfeitorias sejam elas úteis, necessárias, ou voluptuosas, que sejam realizadas, mesmo com a autorização da LOCADORA, ainda que as autorize, ficarão incorporadas, desde logo, ao imóvel, sem qualquer direito de indenização por parte da LOCADORA.  Fica ressalvo o direito da LOCADORA, ainda que autorize as modificações, de exigir que a LOCATÁRIA por sua exclusiva conta, reponha o imóvel em seu estado anterior, uma vez finda a locação, desde logo renunciando a eventual direito de retenção, previsto no Art.571 parágrafos único do Código Civil Brasileiro.</p>
+    </div>
+    <div class="clausula">
+        <h3>Cláusula XIII - </h3>
+        <p>SEGURO - Durante o prazo de locação e independente de cobrança da LOCADORA, ou de sua bastante procuradora, a LOCATÁRIA, se obriga a pagar, quando lhe for cobrado, o prêmio do seguro contra incêndio do imóvel locado, ou apresentar Apólice comprobatória do contrato de seguro assinado com empresa idônea do ramo, em favor da LOCADORA, por valor nunca inferior a R$ 400.000,00 (Quatrocentos mil reais), equivalentes a 200 (Duzentas), vezes o valor do aluguel. </p>
+    </div>
+    <div class="clausula">
+        <h3>Cláusula XIV - </h3>
+        <p>OUTRAS OBRIGAÇÕES DA LOCATÁRIA - A LOCATÁRIA, obriga-se: a) manter o imóvel em todas as suas dependências em estado de conservação, higiene e limpeza, bem como a reparar todo e qualquer estrago nele ocorrido; b) não sublocar, ceder ou emprestar, em todo ou em parte, imóvel locado, sem consentimento por escrito da LOCADORA, c) cumprir todas as exigências da saúde pública, municipal, estadual ou federal, sem direito a qualquer indenização pela LOCADORA, desde que o mesmo a ela tenha dado causa; d) facultar a LOCADORA, quando este estender conveniente, examinar ou vistoriar o imóvel locado, pessoalmente ou por preposto autorizado, no caso do imóvel ser colocado à venda, e permitir que os interessados o visitem; e) entregar mensalmente o comprovante do imposto de renda retido na fonte, quando for o caso; f) apresentar quando finda ou rescindida a locação, os comprovantes do pagamento da conta final de luz e água; g) não reivindicar direitos sobre obra realizada no imóvel, que ficará incorporada na forma prevista neste contrato.</p>
+    </div>
+    <div class="clausula">
+        <h3>Cláusula XV</h3>
+        <p>PROIBIÇÕES - A LOCATÁRIA, assume a obrigação de não modificar a estrutura do imóvel, sob pena da LOCADORA poder rescindir o contrato e exigir a reposição de tudo em seu estado anterior, além de cobrar a multa estipulada da Cláusula X do presente contrato; b) fica vedado a LOCATÁRIA furar as paredes azulejadas para fixação de armários ou quaisquer outros objetos, obrigando-se em caso de descumprimento desta Cláusula, a efetivar a troca de todos os azulejos furados ou danificados por ocasião da entrega das chaves c) fica autorizada á abertura de vão para ar condicionado desde que este seja vedado ao término da locação; d) não é permitida a colagem de adesivos, colas, fitas durex e adesivas nos armários, nem internamente, nem externamente, nem furar qualquer revestimento de parede tais como lambri, fórmica ou qualquer outro revestimento, sob pena de reposição do material danificado; e) não é permitido o uso de guarda de material explosivo, tóxico dentro do imóvel, sendo a LOCATÁRIA responsável civil e criminalmente por danos materiais ou físicos causados ao imóvel e aos vizinhos; f) não é permitido colocar qualquer aviso, placa, toldo, anúncio, notícia ou sinal, em qualquer parte do imóvel sem prévio consentimento por escrito do locador, que poderá negar sem justificativa ou motivo.</p>
+    </div>
+    <div class="clausula">
+        <h3>Cláusula XVI - </h3>
+        <p>A LOCADORA não se responsabiliza por qualquer acidente, desastre ou roubo ocorrido no imóvel ora locado.</p>
+    </div>
+    <div class="clausula">
+        <h3>Cláusula XVII - </h3>
+        <p>FORO DE ELEIÇÃO - Elegem as partes o foro da Comarca de Nova Iguaçu para dirimir qualquer dúvida oriunda do presente contrato, que é obrigatório para as partes, seus herdeiros e sucessores, seja qual for o domicílio dos ora contratantes. E, por estrem justos e contratados, assinam o presente em 02(duas) vias de igual teor, que leram e achara, conforme, tudo na presença das testemunhas abaixo declaradas e assinadas.</p>
+    </div>
+
+
+    <p>Cidade, {{ contrato.data_inicio }}</p>
+
+    {% for loc in contrato.imovel.locadorimovel_set.all %}
+        <div class="container_ass">
+            ______________________________<br>{{ loc.locador.nome }} <br> {{ loc.locador.cpf }}
+        </div>
+    {% endfor %}
+
+    <div class="container_ass">
+     ____________________________________<br>
+        {{ contrato.locatario.nome }}<br>
+         {{ contrato.locatario.cpf }}
+    </div>
+    
+    
+</body>
+</html>

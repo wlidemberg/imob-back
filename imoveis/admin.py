@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.core.exceptions import ValidationError
-from .models import Imovel, Locadores, Locatarios, Fiadores, LocadorImovel, ContratoLocacao
+from .models import Imovel, Locadores, Locatarios, Fiadores, LocadorImovel
 from .forms import LocadorForm, LocatarioForm, FiadorForm
 
 # Register your models here.
@@ -86,10 +86,7 @@ class ImovelLocadorInline(admin.TabularInline):
                     )
         return ValidatedFormSet   
 
+"""
 
-@admin.register(ContratoLocacao)
-class ContratoLocacaoAdmin(admin.ModelAdmin):
-    list_display = ('imovel', 'locatario', 'fiador', 'data_inicio', 'data_fim', 'valor_aluguel', 'status')
-    search_fields = ('imovel__titulo', 'lacatario__nome', 'fiador__nome')
-    list_filter = ('status', 'periodo_reajuste')
-    ordering = ('-data_inicio',)                  
+
+"""    

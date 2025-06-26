@@ -20,4 +20,5 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('imoveis.urls')), # conecta as rotas no app
+    path('contrato/', include('contratos.urls')),
 ]
