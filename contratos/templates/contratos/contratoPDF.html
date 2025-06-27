@@ -1,3 +1,5 @@
+{% load format_extras %}
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -43,7 +45,7 @@
 
     <div class="clausula">
         <h3>Cláusula II - Aluguel</h3>
-        <p>O aluguel inicial é de R$ {{ contrato.imovel.preco }} (Dois Mil Reais), acrescidos das taxas, encargos bem como quaisquer outras taxas que sejam inerentes aos imóveis, sendo tais pagamentos de obrigação da LOCATÁRIA, e será reajustado ANUALMENTE, utilizando-se um dos seguintes Índices: índice de Preços ao Consumidor da Fundação Instituto de Pesquisas Econômicas, Índice Geral de Preços da Fundação Getúlio Vargas (IGP/ FGV), Índice de Preço ao Consumidor da Fundação Getúlio Vargas, Índice Geral de Preços de Mercado da Fundação Getúlio Vargas (IGPM / FGV), Índice de Custo de Vida do Departamento Intersindical de Estatística e Estudos Socioeconômicos, Índice de Preços ao Consumidor Ampliado do Instituto Brasileiro de Geografia e Estatística (IPCA / IBGE), dentro os quais poderão ser escolhidos o maior, a critérios da LOCADORA</p>
+        <p>O aluguel inicial é de {{ contrato.imovel.preco|brl }} (Dois Mil Reais), acrescidos das taxas, encargos bem como quaisquer outras taxas que sejam inerentes aos imóveis, sendo tais pagamentos de obrigação da LOCATÁRIA, e será reajustado ANUALMENTE, utilizando-se um dos seguintes Índices: índice de Preços ao Consumidor da Fundação Instituto de Pesquisas Econômicas, Índice Geral de Preços da Fundação Getúlio Vargas (IGP/ FGV), Índice de Preço ao Consumidor da Fundação Getúlio Vargas, Índice Geral de Preços de Mercado da Fundação Getúlio Vargas (IGPM / FGV), Índice de Custo de Vida do Departamento Intersindical de Estatística e Estudos Socioeconômicos, Índice de Preços ao Consumidor Ampliado do Instituto Brasileiro de Geografia e Estatística (IPCA / IBGE), dentro os quais poderão ser escolhidos o maior, a critérios da LOCADORA</p>
     </div>
     <div class="clausula">
         <h3>Cláusula III - </h3>

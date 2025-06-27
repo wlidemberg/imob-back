@@ -1,0 +1,53 @@
+{% load format_extras %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Contratos</title>
+
+    <style>
+
+        *{ padding: 0; margin: 0; box-sizing: border-box;  background-color: rgb(247, 234, 219); font-size: 18px;}  
+        h2{ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 2rem; background-color: #dd3737; font-weight: 300; padding: 20px;}
+        p{color: #333333; text-transform: uppercase; }
+
+        .cards{display: flex;  padding: 10px 20px; justify-content: center; }
+        .card{ width: 800px;display: flex; flex-direction: column; gap:8px;  border: 1px solid #f78679; border-radius: 10px; padding: 20px;}
+        .container-button{display: flex; align-items: center; justify-content: center; gap: 20px; margin-top: 20px;}
+        button{background-color: #e6514d; color: #fff; font-size: 14px; padding: 8px 16px; border-radius: 10px; border: none; cursor: pointer;}
+    </style>
+
+
+</head>
+<body>
+    <main>
+        <section>
+            <h2>Contrato {{ contrato.id }}</h2>
+            <div class="cards">
+                <div class="card">
+                    <p><strong>Locatário:</strong>{{ contrato.locatario.nome }}</p>
+                    <p><strong>Imóvel:</strong>{{ contrato.imovel }}</p>
+                    <p><strong>Início: </strong>{{ contrato.data_inicio | date:"d/m/Y" }}</p>
+                    <p><strong>Termino: </strong>{{ contrato.data_fim | date:"d/m/Y" }}</p>
+                    <p><strong>Valor Aluguel: </strong>{{ contrato.valor_aluguel | brl }}</p>
+
+                    <div class="container-button">
+                        <a href="{% url 'gerar_pdf_contrato' contrato.id %}">
+                            <button>Baixar PDF</button>
+                        </a>
+    
+                        <a href="{% url 'lista_contratos' %}">Voltar</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
+
+
+
+
+
